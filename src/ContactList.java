@@ -75,20 +75,85 @@ public class ContactList
      * @param sortBy: 0=firstName, 1=lastName, 2=phoneNumber
      */
     public void sort(int sortBy) {
-        // TODO: Complete the sort method
+        int length = contacts.size();
+        Person temp;
+        if (sortBy == 1) {
+            for (int i = 0; i < length; i++) {
+                for (int j = 1; j < length - i; j++) {
+                    // Checks if first element is greater than its following element
+                    if (contacts.get(i-1).getFirstName().compareTo(contacts.get(i).getFirstName()) == -1) {
+                        // Swaps the two
+                        temp = contacts.get(i-1);
+                        contacts.set(i-1, contacts.get(i));
+                        contacts.set(i, temp);
+                    }
+                }
+            }
+        }
+        else if (sortBy == 2) {
+            for (int i = 0; i < length; i++) {
+                for (int j = 1; j < length - i; j++) {
+                    // Checks if first element is greater than its following element
+                    if (contacts.get(i-1).getLastName().compareTo(contacts.get(i).getLastName()) == -1) {
+                        // Swaps the two
+                        temp = contacts.get(i-1);
+                        contacts.set(i-1, contacts.get(i));
+                        contacts.set(i, temp);
+                    }
+                }
+            }
+        }
+        else if (sortBy == 3) {
+            for (int i = 0; i < length; i++) {
+                for (int j = 1; j < length - i; j++) {
+                    // Checks if first element is greater than its following element
+                    if (contacts.get(i-1).getPhoneNumber().compareTo(contacts.get(i).getPhoneNumber()) == -1) {
+                        // Swaps the two
+                        temp = contacts.get(i-1);
+                        contacts.set(i-1, contacts.get(i));
+                        contacts.set(i, temp);
+                    }
+                }
+            }
+        }
     }
 
-    // TODO: Write searchByFirstName
+    public Person searchByFirstName(String firstName) {
+        for (Person contact: contacts) {
+            if (contact.getFirstName().equals(firstName)) {
+                return contact;
+            }
+        }
+        return null;
+    }
 
-    // TODO: Write searchByLastName
+    public Person searchByLastName(String lastName) {
+        for (Person contact: contacts) {
+            if (contact.getLastName().equals(lastName)) {
+                return contact;
+            }
+        }
+        return null;
+    }
 
-    // TODO: Write searchByPhoneNumber
+    public Person searchByPhoneNumber(String phoneNumber) {
+        for (Person contact: contacts) {
+            if (contact.getPhoneNumber().equals(phoneNumber)) {
+                return contact;
+            }
+        }
+        return null;
+    }
 
     /**
      * Lists just the Student objects in the Contact List
      */
     public void listStudents() {
-        // TODO: Complete the listStudents method
+        for (Person contact: contacts) {
+            if (contact instanceof Student) {
+                System.out.println(contact);
+            }
+        }
     }
 
     /**
