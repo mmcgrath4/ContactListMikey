@@ -163,9 +163,62 @@ public class ContactList
     public void run() {
         System.out.println("Welcome to your Contacts List");
         System.out.println("Please pick from the following menu options");
-        printMenuOptions();
+        int input;
+        do {
+            printMenuOptions();
+            input = s.nextInt();
+            if (input == 1) {
+                addContact();
+            }
+            else if (input == 2) {
+                sort(1);
+                printContacts();
+            }
+            else if (input == 3) {
+                sort(2);
+                printContacts();
+            }
+            else if (input == 4) {
+                sort(3);
+                printContacts();
+            }
+            else if (input == 5) {
+                listStudents();
+            }
+            else if (input == 6) {
+                System.out.println("Enter a Name:");
+                String name = s.nextLine();
+                if (searchByFirstName(name).equals(null)) {
+                    System.out.println(name + " is not in the list.");
+                }
+                else {
+                    System.out.println(searchByFirstName(name));
+                }
+            }
+            else if (input == 7) {
+                System.out.println("Enter a Name:");
+                String name = s.nextLine();
+                if (searchByLastName(name).equals(null)) {
+                    System.out.println(name + " is not in the list.");
+                }
+                else {
+                    System.out.println(searchByLastName(name));
+                }
+            }
+            else if (input == 8) {
+                System.out.println("Enter a Phone Number:");
+                String number = s.nextLine();
+                if (searchByFirstName(number).equals(null)) {
+                    System.out.println(number + " is not in the list.");
+                }
+                else {
+                    System.out.println(searchByFirstName(number));
+                }
+            }
+        } while (input != 0);
 
-        // TODO: Complete the run method
+
+
     }
 
 
