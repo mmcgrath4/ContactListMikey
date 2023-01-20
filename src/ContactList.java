@@ -18,7 +18,7 @@ public class ContactList
     private Scanner s;
 
     public ContactList() {
-        contacts = new ArrayList<Person>();
+        contacts = new ArrayList<>();
         s = new Scanner(System.in);
     }
 
@@ -41,18 +41,22 @@ public class ContactList
      */
     public void addContact() {
         System.out.println("Select a type of contact to add:\n1. Student\n2. Adult");
+        // Can we assume that this will be a valid input?
         int input = s.nextInt();
+        s.nextLine();
         System.out.println("Please fill in the following information:.\nFirst Name:");
         String firstName = s.nextLine();
         System.out.println("Last Name:");
         String lastName = s.nextLine();
         System.out.println("Phone Number");
         String number = s.nextLine();
+        // Asks grade for students
         if (input == 1) {
             System.out.println("Grade:");
             int grade = s.nextInt();
             contacts.add(new Student(firstName, lastName, number, grade));
         }
+        // Asks job for adults
         else {
             System.out.println("Job:");
             String job = s.nextLine();
@@ -75,44 +79,60 @@ public class ContactList
      * @param sortBy: 0=firstName, 1=lastName, 2=phoneNumber
      */
     public void sort(int sortBy) {
-        int length = contacts.size();
-        Person temp;
         if (sortBy == 1) {
-            for (int i = 0; i < length; i++) {
-                for (int j = 1; j < length - i; j++) {
-                    // Checks if first element is greater than its following element
-                    if (contacts.get(i-1).getFirstName().compareTo(contacts.get(i).getFirstName()) == -1) {
-                        // Swaps the two
-                        temp = contacts.get(i-1);
-                        contacts.set(i-1, contacts.get(i));
-                        contacts.set(i, temp);
-                    }
-                }
-            }
+            sortByFirstName();
         }
         else if (sortBy == 2) {
-            for (int i = 0; i < length; i++) {
-                for (int j = 1; j < length - i; j++) {
-                    // Checks if first element is greater than its following element
-                    if (contacts.get(i-1).getLastName().compareTo(contacts.get(i).getLastName()) == -1) {
-                        // Swaps the two
-                        temp = contacts.get(i-1);
-                        contacts.set(i-1, contacts.get(i));
-                        contacts.set(i, temp);
-                    }
+            sortByLastName();
+        }
+        else if (sortBy == 3) {
+            sortByPhoneNumber();
+        }
+    }
+
+    public void sortByFirstName() {
+        int length = contacts.size();
+        Person temp;
+        for (int i = 1; i < length; i++) {
+            for (int j = 0; j < length - i; j++) {
+                // Checks if first element is greater than its following element
+                if (contacts.get(j).getFirstName().compareTo(contacts.get(j+1).getFirstName()) == -1) {
+                    // Swaps the two
+                    temp = contacts.get(j);
+                    contacts.set(j, contacts.get(j + 1));
+                    contacts.set(j, temp);
                 }
             }
         }
-        else if (sortBy == 3) {
-            for (int i = 0; i < length; i++) {
-                for (int j = 1; j < length - i; j++) {
-                    // Checks if first element is greater than its following element
-                    if (contacts.get(i-1).getPhoneNumber().compareTo(contacts.get(i).getPhoneNumber()) == -1) {
-                        // Swaps the two
-                        temp = contacts.get(i-1);
-                        contacts.set(i-1, contacts.get(i));
-                        contacts.set(i, temp);
-                    }
+    }
+
+    public void sortByLastName() {
+        int length = contacts.size();
+        Person temp;
+        for (int i = 1; i < length; i++) {
+            for (int j = 0; j < length - i; j++) {
+                // Checks if first element is greater than its following element
+                if (contacts.get(j).getLastName().compareTo(contacts.get(j + 1).getLastName()) == -1) {
+                    // Swaps the two
+                    temp = contacts.get(j);
+                    contacts.set(j, contacts.get(j + 1));
+                    contacts.set(j, temp);
+                }
+            }
+        }
+    }
+
+    public void sortByPhoneNumber() {
+        int length = contacts.size();
+        Person temp;
+        for (int i = 1; i < length; i++) {
+            for (int j = 0; j < length - i; j++) {
+                // Checks if first element is greater than its following element
+                if (contacts.get(j).getPhoneNumber().compareTo(contacts.get(j+1).getPhoneNumber()) == -1) {
+                    // Swaps the two
+                    temp = contacts.get(j);
+                    contacts.set(j, contacts.get(j + 1));
+                    contacts.set(j, temp);
                 }
             }
         }
@@ -167,60 +187,66 @@ public class ContactList
         do {
             printMenuOptions();
             input = s.nextInt();
+            s.nextLine();
+            //Add Contact
             if (input == 1) {
                 addContact();
             }
+            // List by first name
             else if (input == 2) {
                 sort(1);
                 printContacts();
             }
+            // List by last name
             else if (input == 3) {
                 sort(2);
                 printContacts();
             }
+            // List by phone numbe
             else if (input == 4) {
                 sort(3);
                 printContacts();
             }
+            // List all students
             else if (input == 5) {
                 listStudents();
             }
+            // search by first name
             else if (input == 6) {
                 System.out.println("Enter a Name:");
                 String name = s.nextLine();
-                if (searchByFirstName(name).equals(null)) {
+                if (searchByFirstName(name) == null) {
                     System.out.println(name + " is not in the list.");
                 }
                 else {
                     System.out.println(searchByFirstName(name));
                 }
             }
+            // Search by last name
             else if (input == 7) {
                 System.out.println("Enter a Name:");
                 String name = s.nextLine();
-                if (searchByLastName(name).equals(null)) {
+                if (searchByLastName(name) == null) {
                     System.out.println(name + " is not in the list.");
                 }
                 else {
                     System.out.println(searchByLastName(name));
                 }
             }
+            // Search by phone number
             else if (input == 8) {
                 System.out.println("Enter a Phone Number:");
                 String number = s.nextLine();
-                if (searchByFirstName(number).equals(null)) {
+                if (searchByPhoneNumber(number) == null) {
                     System.out.println(number + " is not in the list.");
                 }
                 else {
-                    System.out.println(searchByFirstName(number));
+                    System.out.println(searchByPhoneNumber(number));
                 }
             }
         } while (input != 0);
 
-
-
     }
-
 
     public static void main(String[] args)
     {
