@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**
@@ -96,11 +97,9 @@ public class ContactList
         for (int i = 1; i < length; i++) {
             for (int j = 0; j < length - i; j++) {
                 // Checks if first element is greater than its following element
-                if (contacts.get(j).getFirstName().compareTo(contacts.get(j+1).getFirstName()) == -1) {
+                if (contacts.get(j).getFirstName().compareTo(contacts.get(j+1).getFirstName()) > 0) {
                     // Swaps the two
-                    temp = contacts.get(j);
-                    contacts.set(j, contacts.get(j + 1));
-                    contacts.set(j, temp);
+
                 }
             }
         }
@@ -112,11 +111,9 @@ public class ContactList
         for (int i = 1; i < length; i++) {
             for (int j = 0; j < length - i; j++) {
                 // Checks if first element is greater than its following element
-                if (contacts.get(j).getLastName().compareTo(contacts.get(j + 1).getLastName()) == -1) {
+                if (contacts.get(j).getLastName().compareTo(contacts.get(j + 1).getLastName()) > 0) {
                     // Swaps the two
-                    temp = contacts.get(j);
-                    contacts.set(j, contacts.get(j + 1));
-                    contacts.set(j, temp);
+                    Collections.swap(contacts, j, j+1);
                 }
             }
         }
@@ -128,11 +125,9 @@ public class ContactList
         for (int i = 1; i < length; i++) {
             for (int j = 0; j < length - i; j++) {
                 // Checks if first element is greater than its following element
-                if (contacts.get(j).getPhoneNumber().compareTo(contacts.get(j+1).getPhoneNumber()) == -1) {
+                if (contacts.get(j).getPhoneNumber().compareTo(contacts.get(j+1).getPhoneNumber()) > 0) {
                     // Swaps the two
-                    temp = contacts.get(j);
-                    contacts.set(j, contacts.get(j + 1));
-                    contacts.set(j, temp);
+                    Collections.swap(contacts, j, j+1);
                 }
             }
         }
@@ -250,6 +245,12 @@ public class ContactList
 
     public static void main(String[] args)
     {
+//        String x = "x";
+//        String a = "a";
+//        System.out.println(x.compareTo(a));
+//        if (x.compareTo(a) == -1) {
+//            System.out.println("swap");
+//        }
         ContactList cl = new ContactList();
         cl.run();
     }
